@@ -1,0 +1,218 @@
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bach Store</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #222;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background: #1f2937;
+            padding: 12px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            text-align: center;
+            padding: 45px 15px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .product {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px #00000012;
+        }
+
+        .product img {
+            width: 100%;
+            height: 170px;
+            object-fit: contain;
+        }
+
+        .price {
+            color: #e11d48;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #cart {
+            background: white;
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 700px;
+            border-radius: 12px;
+        }
+
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🛍️ BACH STORE</h1>
+    <p>Cửa hàng trực tuyến của Bách</p>
+</header>
+
+<nav>
+    <a href="#home">Trang chủ</a>
+    <a href="#products">Sản phẩm</a>
+    <a href="#cart">Giỏ hàng 🛒</a>
+</nav>
+
+<section class="banner" id="home">
+    <h2>Chào mừng đến với BACH STORE!</h2>
+    <p>Mua sắm dễ dàng, nhanh chóng.</p>
+</section>
+
+<h2 style="text-align:center" id="products">
+    🛒 Sản phẩm nổi bật
+</h2>
+
+<section class="products">
+
+    <div class="product">
+        <img src="https://placehold.co/300x200?text=Ao+thun"
+             alt="Áo thun">
+        <h3>Áo thun</h3>
+        <p class="price">150.000đ</p>
+        <button onclick="addCart('Áo thun', 150000)">
+            Thêm vào giỏ
+        </button>
+    </div>
+
+    <div class="product">
+        <img src="https://placehold.co/300x200?text=Giay"
+             alt="Giày thể thao">
+        <h3>Giày thể thao</h3>
+        <p class="price">450.000đ</p>
+        <button onclick="addCart('Giày thể thao', 450000)">
+            Thêm vào giỏ
+        </button>
+    </div>
+
+    <div class="product">
+        <img src="https://placehold.co/300x200?text=Tai+nghe"
+             alt="Tai nghe">
+        <h3>Tai nghe</h3>
+        <p class="price">250.000đ</p>
+        <button onclick="addCart('Tai nghe', 250000)">
+            Thêm vào giỏ
+        </button>
+    </div>
+
+</section>
+
+<section id="cart">
+    <h2>🛒 Giỏ hàng của bạn</h2>
+    <div id="cartItems">Chưa có sản phẩm.</div>
+    <h3 id="total">Tổng tiền: 0đ</h3>
+    <button onclick="checkout()">Đặt hàng</button>
+</section>
+
+<footer>
+    <p>© 2026 BACH STORE</p>
+    <p>Website bán hàng của Bách</p>
+</footer>
+
+<script>
+    let cart = [];
+
+    function addCart(name, price) {
+        cart.push({ name, price });
+        renderCart();
+    }
+
+    function renderCart() {
+        const cartItems = document.getElementById("cartItems");
+        const total = document.getElementById("total");
+
+        if (cart.length === 0) {
+            cartItems.textContent = "Chưa có sản phẩm.";
+        } else {
+            cartItems.innerHTML = cart.map((item, index) =>
+                `<p>${item.name} - ${item.price.toLocaleString("vi-VN")}đ
+                <button onclick="removeItem(${index})">Xóa</button></p>`
+            ).join("");
+        }
+
+        const sum = cart.reduce((total, item) => total + item.price, 0);
+
+        total.textContent =
+            "Tổng tiền: " + sum.toLocaleString("vi-VN") + "đ";
+    }
+
+    function removeItem(index) {
+        cart.splice(index, 1);
+        renderCart();
+    }
+
+    function checkout() {
+        if (cart.length === 0) {
+            alert("Giỏ hàng đang trống!");
+            return;
+        }
+
+        alert("Đây là bản demo. Chức năng đặt hàng thật chưa được kết nối.");
+    }
+</script>
+
+</body>
+</html>
+```
